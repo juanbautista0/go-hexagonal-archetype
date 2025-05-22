@@ -1,0 +1,32 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Go Hexagonal Architecture Lambda Function
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 128
+
+Resources:
+  VehicleFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: app/entrypoints/lambda/main
+      Runtime: go1.x
+      Architectures:
+        - x86_64
+      Events:
+        CreateVehicle:
+          Type: Api
+          Properties:
+            Path: /vehicles
+            Method: post
+
+Outputs:
+  VehicleFunction:
+    Description: "Vehicle Lambda Function ARN"
+    Value: !GetAtt VehicleFunction.Arn
+  VehicleApi:
+    Description: "API Gateway endpoint URL for Prod stage for Vehicle function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/vehicles/"

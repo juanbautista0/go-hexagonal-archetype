@@ -1,0 +1,10 @@
+{
+  "body": "{\"brand\":\"Toyota\",\"model\":\"Corolla\",\"year\":2023}",
+  "resource": "/vehicles",
+  "path": "/vehicles",
+  "httpMethod": "POST",
+  "isBase64Encoded": false,
+  "headers": {
+    "Content-Type": "application/json"
+  }
+}
