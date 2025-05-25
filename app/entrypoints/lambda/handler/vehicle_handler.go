@@ -73,7 +73,7 @@ func (h *VehicleLambdaHandler) Handler(ctx context.Context, event interface{}) (
 	h.logger(http.StatusOK).
 		SetCode("HANDLER").
 		SetDetail("Successful operation").
-		SetMessage(http.StatusText(http.StatusBadRequest)).
+		SetMessage(http.StatusText(http.StatusOK)).
 		SetMetadata(map[string]interface{}{"result": result}).
 		Write()
 
