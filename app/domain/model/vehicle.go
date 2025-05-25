@@ -1,10 +1,12 @@
 package model
 
-import "github.com/google/uuid"
+import (
+	"github.com/juanbautista0/go-hexagonal-archetype/app/libraries"
+)
 
 type Vehicle struct {
-	Id    uuid.UUID `json:"id"`
-	Brand string    `json:"brand"`
-	Model string    `json:"model"`
-	Year  int       `json:"year"`
+	Id    libraries.Uuid `json:"id"`
+	Brand string         `json:"brand"`
+	Model string         `json:"model"`
+	Year  int            `json:"year"`
 }
