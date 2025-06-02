@@ -1,7 +1,9 @@
 package command
 
-import "github.com/juanbautista0/go-hexagonal-archetype/app/domain/model"
+import (
+	"github.com/juanbautista0/go-hexagonal-archetype/app/domain/entity"
+)
 
 type CreateVehicleCommand struct {
-	model.Vehicle
+	Vehicle entity.Vehicle `json:"vehicle"`
 }

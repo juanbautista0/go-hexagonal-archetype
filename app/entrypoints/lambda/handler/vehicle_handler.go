@@ -8,6 +8,7 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/juanbautista0/go-hexagonal-archetype/app/domain/command"
+	"github.com/juanbautista0/go-hexagonal-archetype/app/domain/entity"
 	"github.com/juanbautista0/go-hexagonal-archetype/app/entrypoints/model"
 	"github.com/juanbautista0/go-hexagonal-archetype/app/libraries"
 )
@@ -52,9 +53,19 @@ func (h *VehicleLambdaHandler) Handler(ctx context.Context, event interface{}) (
 		return h.Response(http.StatusBadRequest, nil), nil
 	}
 
-	cmd := command.CreateVehicleCommand{
-		Vehicle: req.Vehicle,
+	vehicle, err := entity.NewVehicleFromPrimitives(req.Id.String(), req.Brand, req.Model, req.Year)
+	if err != nil {
+		h.logger(http.StatusBadRequest).
+			SetCode("HANDLER").
+			SetDetail("Invalid request body").
+			SetMessage(http.StatusText(http.StatusBadRequest)).
+			SetMetadata(map[string]interface{}{"error": err.Error()}).
+			Write()
+
+		return h.Response(http.StatusBadRequest, nil), nil
 	}
+
+	cmd := &command.CreateVehicleCommand{Vehicle: vehicle}
 
 	result, err := h.cmdHandler.Handle(ctx, cmd)
 	if err != nil {

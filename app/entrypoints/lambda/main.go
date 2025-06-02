@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/juanbautista0/go-hexagonal-archetype/app/adapters/vehicle_repository"
+	"github.com/juanbautista0/go-hexagonal-archetype/app/adapters/persistence/memory"
 	"github.com/juanbautista0/go-hexagonal-archetype/app/domain/command"
 	"github.com/juanbautista0/go-hexagonal-archetype/app/domain/ports"
 	"github.com/juanbautista0/go-hexagonal-archetype/app/entrypoints/lambda/handler"
@@ -15,7 +15,7 @@ func createCommandHandler(r ports.VehicleRepository) libraries.CommandHandler {
 }
 
 func main() {
-	repository := vehicle_repository.NewVehicleRepositoryImpl()
+	repository := memory.NewInMemoryVehicleRepository()
 	handler := libraries.CreateHandler(
 		createCommandHandler,
 		handler.NewVehicleLambdaHandler,

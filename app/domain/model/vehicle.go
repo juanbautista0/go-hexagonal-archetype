@@ -8,5 +8,5 @@ type Vehicle struct {
 	Id    libraries.Uuid `json:"id"`
 	Brand string         `json:"brand"`
 	Model string         `json:"model"`
-	Year  int            `json:"year"`
+	Year  string         `json:"year"`
 }
